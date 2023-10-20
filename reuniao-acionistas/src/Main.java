@@ -19,6 +19,7 @@ public class Main {
     for (String analise: analises) {
       System.out.println(analise);
     }
+    scanner.close();
   }
 }
 
@@ -38,8 +39,18 @@ class SistemaAcionistas {
     analises.add(new Analise(df.parse("30/06/2023"), "Analise de Inovacao e Tecnologia"));
 
    //TODO: Implemente o filtro das análises dentro do período especificado. Dica: Crie uma lista para armazenar as análises filtradas e use um loop for para filtrar as análises.
-    
+    List <String> analisesFiltradas = new ArrayList <> ();
+    for (Analise analise : analises){
+      Date dataAnalise = analise.getData();
+      if (dataInicial.before(dataAnalise) || dataInicial.equals(dataAnalise)){
+        if (dataFinal.after(dataAnalise) || dataFinal.equals(dataAnalise)){
+          analisesFiltradas.add(analise.getDescricao());
+
+        }
+      }
+    }
    // TODO: Retorne a lista de análises filtradas.
+   return analisesFiltradas;
   }
 
   class Analise {
@@ -49,6 +60,13 @@ class SistemaAcionistas {
     public Analise(Date data, String descricao) {
       this.data = data;
       this.descricao = descricao;
+    }
+
+    public Date getData() {
+        return data;
+    }
+    public String getDescricao() {
+        return descricao;
     }
   }
 }
